@@ -1,0 +1,86 @@
+
+# Set the Time Zone of your Server
+SetEnv TZ Asia/Calcutta
+
+# DirectoryIndex: sets the file that Apache will serve if a directory is requested.
+DirectoryIndex index.php /index.php
+
+# Commonly used filename extensions to character sets.
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f [OR]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+</IfModule>
+
+<ifModule mod_headers.c>
+### HEADER CACHING
+
+# 1 YEAR
+<FilesMatch "\.(flv|ico|pdf|avi|mov|ppt|doc|mp3|wmv|wav)$">
+Header set Cache-Control "max-age=29030400, private"
+</FilesMatch>
+ 
+# 1 WEEK
+<FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+Header set Cache-Control "max-age=604800, private"
+</FilesMatch>
+ 
+# 3 HOUR
+<FilesMatch "\.(txt|xml|js|css)$">
+Header set Cache-Control "max-age=10800, private"
+</FilesMatch>
+ 
+# 1 HOUR
+<FilesMatch "\.(html|htm|php|cgi|pl)$">
+Header set Cache-Control "max-age=3600, private"
+</FilesMatch>
+
+</ifModule>
+
+<ifModule mod_expires.c>
+
+ExpiresActive On
+ExpiresDefault A3600
+ 
+# 1 YEAR
+<FilesMatch "\.(flv|ico|pdf|avi|mov|ppt|doc|mp3|wmv|wav)$">
+ExpiresDefault A29030400
+</FilesMatch>
+ 
+# 1 WEEK
+<FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+ExpiresDefault A604800
+</FilesMatch>
+ 
+# 3 HOUR
+<FilesMatch "\.(txt|xml|js|css)$">
+ExpiresDefault A10800"
+</FilesMatch>
+
+# 1 HOUR
+<FilesMatch "\.(html|htm|php|cgi|pl)$">
+ExpiresDefault A3600"
+</FilesMatch>
+
+ExpiresActive On
+ExpiresDefault A3600
+ExpiresByType image/x-icon A2592000
+ExpiresByType application/x-javascript A3600
+ExpiresByType text/css A10800
+ExpiresByType image/gif A604800
+ExpiresByType image/png A604800
+ExpiresByType image/jpeg A604800
+ExpiresByType text/plain A3600
+ExpiresByType application/x-shockwave-flash A604800
+ExpiresByType video/x-flv A604800
+ExpiresByType application/pdf A604800
+ExpiresByType text/html A3600
+ExpiresByType text/php A3600
+
+</ifModule>
+
